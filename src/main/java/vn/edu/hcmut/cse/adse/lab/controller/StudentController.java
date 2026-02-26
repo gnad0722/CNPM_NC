@@ -1,0 +1,27 @@
+package vn.edu.hcmut.cse.adse.lab.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import vn.edu.hcmut.cse.adse.lab.service.StudentService;
+import vn.edu.hcmut.cse.adse.lab.entity.*;
+import java.util.*;
+@RestController
+@RequestMapping("/api/students")
+public class StudentController {
+    @Autowired
+    private StudentService service;
+    
+    @GetMapping
+    public List<Student> getAllStudents(){
+        return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable Long id){
+        return service.getById(id);
+    }
+}
