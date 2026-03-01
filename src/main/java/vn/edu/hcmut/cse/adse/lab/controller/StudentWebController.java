@@ -33,27 +33,40 @@ public class StudentWebController {
     @GetMapping("/add")
     public String addStudentForm(Model model){
         model.addAttribute("student",new Student());
+        model.addAttribute("mode","create" );
         return "add-student";
     }
     @PostMapping("/save")
-    public String save(@ModelAttribute Student student){
+    public String save(@ModelAttribute Student student,@RequestParam String mode, Model model){
+        boolean exists=service.existById(student.getId());
+        if ("create".equals(mode) && exists){
+            model.addAttribute("error","Id đã tồn tại");
+             model.addAttribute("mode","create" );
+            return "add-student";
+        }
+        if ("update".equals(mode) && !exists){
+            model.addAttribute("error","Id không tồn tại");
+             model.addAttribute("mode","update" );
+            return "add-student";
+        }
         service.saveStudent(student);
         return "redirect:/students";
     }
     @GetMapping("/{id}")
-    public String getStudentById(@PathVariable Long id, Model model){
+    public String getStudentById(@PathVariable String id, Model model){
         Student student=service.getById(id);
         model.addAttribute("student", student);
         return "detail";
     }
     @GetMapping("/edit/{id}")
-    public String editStudentForm(Model model, @PathVariable Long id){
+    public String editStudentForm(Model model, @PathVariable String id){
         Student student= service.getById(id);
         model.addAttribute("student", student);
+        model.addAttribute("mode","update" );
         return "add-student";
     }
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable Long id){
+    public String deleteStudent(@PathVariable String id){
         service.deleteStudent(id);
         return "redirect:/students";
     }

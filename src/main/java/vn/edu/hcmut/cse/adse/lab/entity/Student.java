@@ -5,22 +5,22 @@ import jakarta.persistence.*;
 @Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private int age;        
     public Student() {
     }   
-    public Student(String name, String email, int age) {
+    public Student(String name, String email, int age, String id) {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.id= id;
     } 
-    public Long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getName() {

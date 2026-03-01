@@ -11,9 +11,14 @@
 </head>
 
 <body>
-    <h1>Thêm Sinh Viên</h1>
+    <h1>Vui lòng nhập thông tin sinh viên</h1>
     <form th:action="@{/students/save}" method="post" th:object="${student}" class="d-flex flex-column">
-         <input type="hidden" th:field="*{id}">
+        <input type="hidden" name="mode" th:value="${mode}">
+         <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Student ID</label>
+            <input th:field="*{id}" type="text" class="form-control" id="exampleFormControlInput1"
+                placeholder="Enter Student ID" />
+        </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
             <input th:field="*{email}" type="email" class="form-control" id="exampleFormControlInput1"
@@ -29,6 +34,7 @@
             <input type="number" th:field="*{age}" class="form-control" id="exampleFormControlInput3"
                 placeholder="Enter Student Age" />
         </div>
+        <span th:if="${error}" class="text-danger" th:text="${error}"></span>
         <button type="submit" class="btn btn-primary ms-auto">Lưu thông tin</button>
     </form>
 </body>

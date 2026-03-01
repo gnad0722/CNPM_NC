@@ -15,7 +15,7 @@ public class StudentService {
         return repository.findAll();
     } 
 
-    public Student getById(Long id){
+    public Student getById(String id){
         return repository.findById(id).orElse(null);
     }
     public List<Student> getByName(String name){
@@ -24,7 +24,10 @@ public class StudentService {
     public Student saveStudent(Student student){
         return repository.save(student);
     }
-    public void deleteStudent(Long id){
+    public void deleteStudent(String id){
         repository.deleteById(id);
+    }
+    public boolean existById(String id){
+        return repository.existsById(id);
     }
 }
