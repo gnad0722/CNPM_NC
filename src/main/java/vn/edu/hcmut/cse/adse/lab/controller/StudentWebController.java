@@ -44,11 +44,6 @@ public class StudentWebController {
              model.addAttribute("mode","create" );
             return "add-student";
         }
-        if ("update".equals(mode) && !exists){
-            model.addAttribute("error","Id không tồn tại");
-             model.addAttribute("mode","update" );
-            return "add-student";
-        }
         service.saveStudent(student);
         return "redirect:/students";
     }
